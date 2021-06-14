@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang = 'en'>
+
+    <head>
+
+        <link rel='stylesheet' type='text/css' href='./style/style.css'>
+        <meta charset= 'utf-8'>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Staatliches&display=swap" rel="stylesheet">
+
+        <title>Calculator</title>
+
+    </head>
+    <body>
+        <!-- <div>Number of courses offered: </div>
+        <input type="text" id="number" name="number" class = 'in'><br> -->
+        <div class = 'body'>
+            <div class = 'text'>Click the 'NEW COURSE' button to create a new course!</div>
+            <!-- <div>COURSE CODES: &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp COURSE UNIT: &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp GRADES: </div> -->
+            <table class = 'table' >
+                <tr>
+                    <td><div id = 'course' class = 'in3'></div></td>
+                    <td><div id = 'unit' class = 'in3'></div></td>
+                    <td><div id = 'grade' class = 'in3'></div></td><br>
+
+                </tr>
+            </table>
+            <div class = 'buttons'>
+                <button id = 'enter' onclick='clicked_enter()' class = 'in2'>New Course</button>
+                <button id = 'delete' onclick='clicked_delete()' class = 'in2'>Delete</button>
+                <button id = 'submit' class = 'in2'>Submit</button>
+            </div> 
+
+            <div id = 'gpa'>Your GPA is <div id = 'GPA'></div></div>
+        </div>
+
+        
+    </body>
+
+    <script>
+        let i = 0
+        let total = 0
+        let units = [0,1,2,3]
+        const grades = ['A','B','C','D','E','F','NULL']
+        let unitArr = []
+        let point = 0
+        let point2 = 0
+        let point3 = 0
+        let denominator = 0
+
+        let clicked_enter = () =>{
+            // let number = document.getElementById('number').value
+                let course = document.createElement('input')
+                let unit = document.createElement('select')
+                let grade = document.createElement('select')
+
+                course.setAttribute('type','text')
+                course.setAttribute('placeholder','COURSE-CODE')
+            
+                for (let i = 0; i < units.length; i++){
+                    let opt = document.createElement('option')
+                    opt.innerHTML = units[i]
+                    unit.appendChild(opt)
+                }
+                for (let i = 0; i < grades.length; i++){
+                    let opt2 = document.createElement('option')
+                    opt2.innerHTML = grades[i]
+                    grade.appendChild(opt2)
+                }
+                
+                document.getElementById('course').appendChild(course)
+                document.getElementById('unit').appendChild(unit)
+                document.getElementById('grade').appendChild(grade)
+
+        }
+        let unitChild = document.getElementById('unit').children
+        let gradeChild = document.getElementById('grade').children
+
+        let clicked_delete = () =>{
+            let courseL = course.childNodes.length
+            let unitL = unit.childNodes.length
+            let gradeL = grade.childNodes.length
+            course.removeChild(course.childNodes[courseL - 1])
+            unit.removeChild(unit.childNodes[unitL - 1])
+            grade.removeChild(grade.childNodes[gradeL - 1])
+        }
+        
+        document.getElementById('submit').addEventListener('click', (c)=> {
+            //let unitValue = unitChild.value
+            let num = document.getElementById('unit').childElementCount
+            while (i < num){
+                // total += Number(unitChild[i].value)
+                if (unitChild[i].value == '0'){
+                    point = 0
+                    // unitArr.push(point)
+                }
+
+                else if (unitChild[i].value == '1'){
+                    switch(gradeChild[i].value){
+                    case 'A':
+                        point = 5
+                        break
+                    case 'B':
+                        point = 4
+                        break
+                    case 'C':
+                        point = 3
+                        break
+                    case 'D':
+                        point = 2
+                        break
+                    case 'E':
+                        point = 1
+                        break
+                    default:
+                        point = 0
+                    }
+                    unitArr.push(point)
+                }
+
+                else if (unitChild[i].value == '2'){
+                    switch(gradeChild[i].value){
+                    case 'A':
+                        point2 = 10
+                        break
+                    case 'B':
+                        point2 = 8
+                        break
+                    case 'C':
+                        point2 = 6
+                        break
+                    case 'D':
+                        point2 = 4
+                        break
+                    case 'E':
+                        point2 = 2
+                        break
+                    default:
+                        point2 = 0
+                    }
+                    unitArr.push(point2)
+                }
+
+                else if (unitChild[i].value == '3'){
+                    switch(gradeChild[i].value){
+                    case 'A':
+                        point3 = 15
+                        break
+                    case 'B':
+                        point3 = 12
+                        break
+                    case 'C':
+                        point3 = 9
+                        break
+                    case 'D':
+                        point3 = 6
+                        break
+                    case 'E':
+                        point3 = 4
+                        break
+                    default:
+                        point3 = 0
+                    }
+                    unitArr.push(point3)
+                }
+
+
+                
+                console.log(unitArr)
+                
+            
+
+                for (let i = 0; i < unitArr.length; i++){
+                    total += unitArr[i]
+                }
+                console.log(total)
+
+                for (let i = 0; i < unitArr.length; i++){
+                    denominator += Number(unitChild[i].value)
+                }
+
+                console.log(denominator)
+                console.log(unitChild.value)
+                let gpa = Number (total / denominator);
+
+                document.getElementById('GPA').innerHTML = gpa
+                i++;
+                
+            }
+            unitArr = []
+            denominator = 0
+            i = 0
+            total = 0
+            // unitChild = []
+
+            
+            
+            c.preventDefault()
+        } )
+        
+    </script>
+</html>
