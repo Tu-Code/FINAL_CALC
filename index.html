@@ -30,10 +30,10 @@
             <div class = 'buttons'>
                 <button id = 'enter' onclick='clicked_enter()' class = 'in2'>New Course</button>
                 <button id = 'delete' onclick='clicked_delete()' class = 'in2'>Delete</button>
-                <button id = 'submit' class = 'in2'>Submit</button>
+                <button id = 'submit' class = 'in2'>Check GPA</button>
             </div> 
 
-            <div id = 'gpa'>Your GPA is <div id = 'GPA'></div></div>
+            <div id = 'gpa'>Your GPA is <div id = 'GPA'>...</div></div>
         </div>
 
         
@@ -41,6 +41,7 @@
 
     <script>
         let i = 0
+        let x = 0
         let total = 0
         let units = [0,1,2,3]
         const grades = ['A','B','C','D','E','F','NULL']
@@ -49,6 +50,8 @@
         let point2 = 0
         let point3 = 0
         let denominator = 0
+
+
 
         let clicked_enter = () =>{
             // let number = document.getElementById('number').value
@@ -78,6 +81,7 @@
         let unitChild = document.getElementById('unit').children
         let gradeChild = document.getElementById('grade').children
 
+        
         let clicked_delete = () =>{
             let courseL = course.childNodes.length
             let unitL = unit.childNodes.length
@@ -184,8 +188,8 @@
                 console.log(denominator)
                 console.log(unitChild.value)
                 let gpa = Number (total / denominator);
-
-                document.getElementById('GPA').innerHTML = gpa
+                let gpa_ans = gpa.toFixed(1)
+                document.getElementById('GPA').innerHTML = gpa_ans
                 i++;
                 
             }
